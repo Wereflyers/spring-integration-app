@@ -8,6 +8,6 @@ public class ExceptionHandler {
 
     @ServiceActivator
     public void handleFailed(Exception e) {
-        System.out.println("Failed:  "+ e);
+        System.out.println("Failed:  " + e);
     }
 }

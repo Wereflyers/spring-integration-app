@@ -2,9 +2,6 @@ package org.example;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context =

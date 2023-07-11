@@ -18,5 +18,4 @@ public class MessageProcessor {
     public void printLine(String message) {
         messageService.printObject(message);
     }
-
 }

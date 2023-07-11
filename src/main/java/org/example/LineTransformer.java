@@ -11,7 +11,7 @@ import java.util.List;
 public class LineTransformer {
 
     @Transformer
-    protected List<Message> transformLine(String line) {
+    public List<Message> transformLine(String line) {
         List<Message> listOfMessages = new ArrayList<>();
         String[] lineSplit = line.split(", ");
         for (int i = 0; i < lineSplit.length; i++) {
