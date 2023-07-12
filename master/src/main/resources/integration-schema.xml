@@ -12,12 +12,12 @@
     <int:logging-channel-adapter id='logger' level='DEBUG' />
     <int:wire-tap channel = 'logger' />
 
-    <int:splitter
-            input-channel='listOfMessages'
-            output-channel='newMessageChannel'
-    />
+    <int:channel id = 'newLine' />
 
-    <int:channel id = 'newMessageChannel' />
+    <int:gateway id='messageGateway'
+                 service-interface='org.example.master.MessageGateway'>
+        <int:method name='collectString' request-channel='newLine' />
+    </int:gateway>
 
     <int:transformer
             input-channel='newLine'
@@ -26,13 +26,12 @@
 
     <int:channel id = 'listOfMessages' />
 
+    <int:splitter
+            input-channel='listOfMessages'
+            output-channel='newMessageChannel'
+    />
 
-    <int:channel id = 'newLine' />
-
-    <int:gateway id='messageGateway'
-                 service-interface='org.example.master.MessageGateway'>
-        <int:method name='collectString' request-channel='newLine' />
-    </int:gateway>
+    <int:channel id = 'newMessageChannel' />
 
     <int:recipient-list-router input-channel='newMessageChannel'>
         <int:recipient channel = 'upperCase' selector-expression='payload.choseChannel()' />
@@ -42,7 +41,7 @@
     <int:channel id = 'upperCase' />
     <int:channel id = 'reverse' />
 
-    <!--<int:transformer
+    <int:transformer
             input-channel='reverse'
             output-channel='master'
             ref='reverseCreator' />
@@ -50,7 +49,7 @@
     <int:transformer
             input-channel='upperCase'
             output-channel='master'
-            ref='upperCaseCreator' />-->
+            ref='upperCaseCreator' />
 
     <int:aggregator
             input-channel='master'

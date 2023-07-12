@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpperCaseCreator {
 
-    @Transformer(inputChannel = "master")
+    @Transformer
     public String getUpperCase(Message message) {
         return message.getMessageContent().toUpperCase();
     }
+
 }
