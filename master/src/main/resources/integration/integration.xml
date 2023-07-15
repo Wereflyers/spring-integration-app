@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+
+		http://www.springframework.org/schema/integration https://www.springframework.org/schema/integration/spring-integration.xsd">
+
+    <int:poller default="true" fixed-delay="50"/>
+
+    <int:logging-channel-adapter id='logger' level='DEBUG' />
+    <int:wire-tap channel = 'logger' />
+
+    <int:channel id = 'newLine' />
+
+    <int:gateway id='messageGateway'
+                 service-interface='com.example.springintegrationproject.MessageGateway'>
+        <int:method name='collectString' request-channel='newLine' />
+    </int:gateway>
+
+    <int:transformer
+            input-channel='newLine'
+            output-channel='listOfMessages'
+            ref='lineTransformer' />
+
+    <int:channel id = 'listOfMessages' />
+
+    <int:splitter
+            input-channel='listOfMessages'
+            output-channel='newMessageChannel'
+    />
+
+    <int:channel id = 'newMessageChannel' />
+
+    <int:recipient-list-router input-channel='newMessageChannel'>
+        <int:recipient channel = 'upperCase' selector-expression='payload.getEven()' />
+        <int:recipient channel = 'reverse' selector-expression='!payload.getEven()' />
+    </int:recipient-list-router>
+
+    <int:channel id = 'upperCase' />
+    <int:channel id = 'reverse' />
+
+    <int:transformer
+            input-channel='reverse'
+            output-channel='master'
+            ref='reverseCreator' />
+
+    <int:transformer
+            input-channel='upperCase'
+            output-channel='master'
+            ref='upperCaseCreator' />
+
+    <int:aggregator
+            input-channel='master'
+            output-channel='finalMessage'
+    />
+
+    <int:channel id = 'finalMessage' />
+
+    <int:service-activator input-channel='finalMessage' ref='messageProcessor'>
+
+    </int:service-activator>
+
+    <int:channel id = 'exceptionChannel' />
+
+    <int:service-activator
+            input-channel='exceptionChannel'
+            ref='exceptionHandler' />
+</beans>
