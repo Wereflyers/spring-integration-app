@@ -1,20 +1,33 @@
 package com.example.springintegrationproject;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 
-import java.io.IOException;
+import java.util.Arrays;
 
 @SpringBootApplication
-@ImportResource("/integration/integration.xml")
 public class MasterApplication {
 
-	public static void main(String[] args) throws IOException {
-		ConfigurableApplicationContext ctx = new SpringApplication(MasterApplication.class).run(args);
-		ctx.getBean(MessageGateway.class).collectString("item1, item2, item3, item4");
-		ctx.close();
+	public static void main(String[] args) {
+		SpringApplication.run(MasterApplication.class, args);
+	}
+
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+
+			System.out.println("Let's inspect the beans provided by Spring Boot:");
+
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				System.out.println(beanName);
+			}
+
+		};
 	}
 
 }

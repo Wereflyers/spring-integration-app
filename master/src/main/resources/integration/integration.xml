@@ -14,7 +14,7 @@
     <int:channel id = 'newLine' />
 
     <int:gateway id='messageGateway'
-                 service-interface='com.example.springintegrationproject.MessageGateway'>
+                 service-interface='com.example.springintegrationproject.service.MessageGateway'>
         <int:method name='collectString' request-channel='newLine' />
     </int:gateway>
 
@@ -33,8 +33,8 @@
     <int:channel id = 'newMessageChannel' />
 
     <int:recipient-list-router input-channel='newMessageChannel'>
-        <int:recipient channel = 'upperCase' selector-expression='payload.getEven()' />
-        <int:recipient channel = 'reverse' selector-expression='!payload.getEven()' />
+        <int:recipient channel = 'upperCase' selector-expression='payload.isEven()' />
+        <int:recipient channel = 'reverse' selector-expression='!payload.isEven()' />
     </int:recipient-list-router>
 
     <int:channel id = 'upperCase' />
@@ -65,5 +65,5 @@
 
     <int:service-activator
             input-channel='exceptionChannel'
-            ref='exceptionHandler' />
+            ref='errorHandler' />
 </beans>
