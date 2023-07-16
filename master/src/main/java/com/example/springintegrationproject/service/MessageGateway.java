@@ -1,12 +1,8 @@
 package com.example.springintegrationproject.service;
 
-import org.springframework.integration.annotation.EndpointId;
-import org.springframework.integration.annotation.Gateway;
-import org.springframework.integration.annotation.MessagingGateway;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
-@MessagingGateway
 public interface MessageGateway {
-    @EndpointId("messageGateway")
-    @Gateway(requestChannel = "newLine")
-    String collectString(String line);
+
+    void sendMessage(RabbitTemplate template, String exchange, Object data);
 }

@@ -1,12 +1,14 @@
 package com.example.springintegrationproject;
 
-import org.springframework.integration.annotation.Transformer;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
+@Slf4j
 public class ReverseCreator {
-    @Transformer(inputChannel = "reverse", outputChannel = "master")
-    public String getReverse(Message message) {
-        return new StringBuilder(message.getMessageContent()).reverse().toString();
+    @RabbitListener(queues = "myQueue1")
+    public void getReverse(String message) {
+        log.info("Received from queue1 " + new StringBuilder(message).reverse());
     }
 }

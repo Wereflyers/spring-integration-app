@@ -1,14 +1,16 @@
 package com.example.springintegrationproject;
 
-import org.springframework.integration.annotation.Transformer;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
+@Slf4j
 public class UpperCaseCreator {
 
-    @Transformer(inputChannel = "upperCase", outputChannel = "master")
-    public String getUpperCase(Message message) {
-        return message.getMessageContent().toUpperCase();
+    @RabbitListener(queues = "myQueue2")
+    public void getUpperCase(String message) {
+        log.info("Received from queue2 " + message.toUpperCase());
     }
 
 }

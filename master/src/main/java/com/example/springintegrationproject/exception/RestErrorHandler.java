@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 @RestControllerAdvice
 @Slf4j
-public class ErrorHandler {
+public class RestErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleNullException(final NullPointerException e) {
