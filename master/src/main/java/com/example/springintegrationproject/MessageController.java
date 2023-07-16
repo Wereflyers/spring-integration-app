@@ -2,8 +2,10 @@ package com.example.springintegrationproject;
 
 import com.example.springintegrationproject.service.MessageGateway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,11 +18,11 @@ public class MessageController {
         this.messageGateway = messageGateway;
     }
 
-    @GetMapping("/")
-    public String getFormattedString(@RequestBody @NonNull String input) {
+    @PostMapping("/")
+    public ResponseEntity<String> getFormattedString(@RequestBody @NonNull String input) {
         if (input.replaceAll("\"", "").isBlank()) {
-            throw new NullPointerException("Input is blank");
+            return new ResponseEntity<>("Error: empty input", HttpStatus.BAD_REQUEST);
         }
-        return messageGateway.collectString(input);
+        return new ResponseEntity<>(messageGateway.collectString(input), HttpStatus.OK);
     }
 }
