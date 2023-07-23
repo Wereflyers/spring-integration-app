@@ -5,7 +5,7 @@ The project implements messaging functionality within and between containers. Th
 ## Structure
 
 Project is written in Java 11. Maven is used for package and containerization. There is three branches with slightly different frameworks:
-#### project-with-modules
+#### main
 The project is divided into 3 modules. Communication between modules is set up. Messaging is configured using a xml file as part of the Spring framework configuration.
 #### develop
 This branch has the most complex structure:    
