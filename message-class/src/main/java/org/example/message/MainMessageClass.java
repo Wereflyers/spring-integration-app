@@ -1,11 +1,10 @@
-package org.example;
+package org.example.message;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Main {
+public class MainMessageClass {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("integration-context.xml");
-        context.getBean(MessageGateway.class).collectString("item1, item2, item3, item4");
     }
 }

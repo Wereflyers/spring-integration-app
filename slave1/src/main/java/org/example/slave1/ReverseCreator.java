@@ -1,5 +1,6 @@
-package org.example;
+package org.example.slave1;
 
+import org.example.message.Message;
 import org.springframework.integration.annotation.Transformer;
 import org.springframework.stereotype.Component;
 

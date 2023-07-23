@@ -7,9 +7,5 @@
 
     <import resource = 'integration-schema.xml' />
 
-    <context:component-scan base-package = 'org.example' />
-
-    <task:executor id = 'executor' pool-size='10' />
-    <task:scheduler id = 'scheduler' pool-size='10' />
-    <task:annotation-driven executor='executor' scheduler='scheduler' />
+    <context:component-scan base-package = 'org.example.message' />
 </beans>

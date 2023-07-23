@@ -1,16 +1,16 @@
-package org.example;
+package org.example.message;
+
 
 public class Message {
-
-    private final String messageContent;
     private final boolean even;
+    private final String messageContent;
 
     public Message(String messageContent, boolean even) {
-        this.messageContent = messageContent;
         this.even = even;
+        this.messageContent = messageContent;
     }
 
-    public Boolean choseChannel() {
+    public boolean choseChannel() {
         return even;
     }
 

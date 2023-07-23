@@ -1,4 +1,4 @@
-package org.example;
+package org.example.master;
 
 public interface MessageGateway {
 
