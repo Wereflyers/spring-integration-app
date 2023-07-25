@@ -20,7 +20,6 @@
 	</properties>
 
 	<modules>
-		<module>message-class</module>
 		<module>master</module>
 		<module>slave1</module>
 		<module>slave2</module>
