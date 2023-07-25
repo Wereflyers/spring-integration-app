@@ -8,13 +8,15 @@ Project is written in Java 11. Maven is used for package and containerization. T
 #### main
 The project is divided into 3 modules. Communication between modules is set up. Messaging is configured using a xml file as part of the Spring framework configuration.
 #### develop
-This branch has the most complex structure:    
+This branch has the following structure:    
 1. Spring Boot    
 2. Maven    
 3. Spring integration    
 4. Rest Controller    
 5. Custom validator for Request body    
-6. Postman tests    
+6. Postman tests
+#### rabbit
+This branch implements RabbitMQ to coordinate microservices.
    
 ## Installation
 *Install Java 11, Maven    
